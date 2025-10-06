@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/page.css">
+    <script src="/img.js"></script>
+    <title>NI-CCC</title>
+</head>
+
+<body>
+
+    <header>
+        <a href="/">
+            <h1>Creative Coding and Computational Art Course</h1>
+        </a>
+        <div>
+            <img src="/logo/logo_nic.png" alt="Logo NI-CCC">
+        </div>
+    </header>
+    <section id="main">
+
+        <section>
+            <h1>Interactive LLM-powered AI assistant for an exhibition</h1>
+            <p class="tagline">Oleh Kuznetsov: NI-CCC project, WS 2023/2024</p> 
+            <!-- Make width 50 % of the screen and center it -->
+            <div style="width: 75%; margin: auto;">
+                <img src="./resources/assistant.png" alt="Interactive LLM">
+            </div>
+        </section>
+        
+        <section>
+            <h1>Idea</h1>
+
+            The main idea behind this project is to bring some interactivity to an exhibition. 
+            Since most of the time, exhibitions come with a lot of text, people (especially children) tend to get bored quickly.
+            Because of that, lots of interesting textual information is left unread.
+
+            This where the idea of an interactive AI assistant comes in. An LLM-powered AI assistant can be used to provide some interactivity to an exhibition:
+            <ul>
+                <li>It can be used to answer questions about the exhibition.</li>
+                <li>It can be equipped with Text-to-Speech and Speech-to-Text modules - no need to type and read at all.</li>
+                <li>It can roleplay different guide personalities, that brings extra layer of personalization to the exhibituion, (like woman from 60s that 
+                    guides you through exhibition dresses from the 60s)</li>
+            </ul>
+
+            Can be done by utilizing a cloud LLM or we can run it ourselves (is some potent GPU is nearby).
+
+        </section>
+
+        <section>
+            <h1>Concept of implementation</h1>
+
+            We are going to need a machine with GPU somewhere around, a display, microphone and speakers.
+            
+            We just need some basic GPU for PoC, if we are going to use some API like OpenAI.
+
+            After that, we:
+            <ul>
+                <li>connect this module with some knowledge base related to our exhibition</li>
+                <li>connect it to TTS and STT modules to provide easy and natural way to interact with the model</li>
+                <li>give the assistant a personality that suites the topic of an exhibition</li>
+                <li>test the setup to minimize exploit or instability probability</li>
+            </ul> 
+        </section>
+
+        <section>
+            <h1>Where to apply?</h1>
+            This is the tricky part, unfortunately now i dont have any particular apllication in mind. So i will appreciate any help.
+        </section>
+
+        <p></p>
+        <center> TBC </center>
+        <p></p>
+
+        <script>
+            makeImgsClickable();
+        </script>
+    </section>
+</body>
+
+</html>
