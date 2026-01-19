@@ -67,19 +67,28 @@
     
     <h2>Nápady</h2>
     <p>
-        Chtěl bych dělat buď něco s počítačovou grafikou, počítačovým viděním a zpracováním obrazu, ale nenapadá mě (alespoň zatím) co.
+        Rozhodl jsem se napsat appku na zjednodušení a zpřehlednění prodeje a nákupu akcií na burze - z hlediska danění.
+        Něco jako jednoduchý portfolio tracker, do kterého by se daly importovat data z různých trading platforem, tracker by
+        je zpracoval a zpřehlednil tak danění příjmů. 
+        Mohl by uživateli i pomáhat hledat informace k danění různých druhů nástrojů. 
+        Jelikož tomu ale nerozumím tak, jak bych chtěl, potřeboval bych pomoc někoho z oboru, kdo se v tom vyzná.
+    </p>
+
+    <h2>Výsledek</h2>
+    <p>
+        Nakonec se nenašel nikdo z oboru, kdo by měl čas a zájem se sejít a pobavit se o tomto projektu, takže nebylo úplně jednoduché
+        doplnit si znalosti ohledně převodů měn, různých sídel brokerů, zdanění již v zemi sídla společnosti, danění dividend, atd.
+        Proto jsem alespoň s radami LLM napsal backend logiku v pythonu, která dělá základní parsování a filtraci .CSV exportu (testováno pouze pro Trading212 export), FIFO matchování nákupů a prodejů, 
+        převody měn (zatím pouze s fixně nastavenými kurzy) na CZK, kontrola časového a hodnotového testu a následný výpis jenotlivých prodejů, celkové prodané částky, zisku a daně ze zisku do konzole.
     </p>
     <p>
-        Z jiného soudku mě napadlo napsat nějakou appku na zjednodušení a zpřehlednění prodeje a nákupu akcií na burze - z hlediska danění.
-        Něco jako jednoduchý portfolio tracker, do kterého by se daly importovat data z trading platforem a on by je 
-        zpracoval a zjednudušil danění příjmů a mohl
-        by uživateli i pomáhat hledat informace k danění různých druhů nástrojů. 
-        Jelikož tomu ale nerozumím tak, jak bych chtěl, potřeboval bych k tomu pomoc někoho z oboru, kdo se v tom vyzná.
+        Nástroj lze najít na mém githubu pod licencí MIT: <a href="https://github.com/domozurek/stock-tax-cz.git">https://github.com/domozurek/stock-tax-cz.git</a>
     </p>
 
     <h2>Kontakt</h2>
     <p>
-        Email: <a href="mailto:zurekdo1@fit.cvut.cz">
+        Email: <a href="mailto:zurekdo1@fit.cvut.cz">zurekdo1@fit.cvut.cz</a>
+    </p>
     </section>
 </body>
 
