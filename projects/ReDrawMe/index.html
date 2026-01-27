@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/page.css">
+    <script src="/img.js"></script>
+    <title>NI-CCC</title>
+</head>
+
+<body>
+
+    <header>
+        <a href="/">
+            <h1>Creative Coding and Computational Art Course</h1>
+        </a>
+        <div>
+            <img src="/logo/logo_nic.png" alt="Logo NI-CCC">
+        </div>
+    </header>
+<section id="main">
+    <!--    DO NOT CHANGE STUFF ABOVE IF YOU DONT KNOW WHAT YOU ARE DOING -->
+    <!--    here is place for your stuff, see examples bellow -->
+
+
+    <h1>ReDrawMe audio extension</h1>
+    <p class="tagline">Iryna Netreba; projekt předmětu NI-CCC v zimním semestru 2025</p>
+
+    <img src="impl.gif"
+         alt="Výsledná animace obrázku na základě přehrávání audio souboru"
+         style="max-width:100%">
+
+    <h2>Nápad</h2>
+    <p>
+      Cílem semestrální práce bylo rozšíření mé bakalářské práce, která představovala hru 
+      založenou na kreslení obrázků a jejich následném překreslování jinými uživateli. 
+      Součástí bakalářské práce byl implementovaný kreslicí editor, který zaznamenává uživatelskou kresbu jako seznam čar 
+      s různými parametry.
+
+    </p>
+    <p>
+      Na základě této funkcionality vznikl nápad vytvořit rozšíření, které by umožnilo přímo v editoru přehrávat hudbu 
+      a na základě dat z audio souboru dynamicky měnit velikost nakreslených čar tak, aby výsledkem byla animace reagující na hudbu. 
+      Principem je řešení podobné vizualizacím používaným v některých ekvalizérech nebo audio přehrávačích, 
+      s tím rozdílem, že obrázek pro animaci si uživatel vytváří sám.
+    </p>
+
+    <h2>Implementace</h2>
+    <p>
+        Práce byla implementována ve frameworku Flutter na platformě Windows, 
+      aby byla zachována technologická návaznost na bakalářskou práci, která tvoří základ tohoto projektu.
+    </p>
+    <p>
+      V rámci vývoje byl vytvořen audio zpracovávač, který analyzuje zvolený audio soubor a vrací 
+      posloupnost hodnot (koeficientů), které jsou aplikovány na velikost již nakreslených čar.
+    </p>
+    <p>
+      Do kreslicího editoru byly následně přidány prvky umožňující interakci uživatele:
+    </p>  
+    
+    <ul>
+        <li>audio přehrávač umožňující spouštění a zastavování přehrávání hudby a animace</li>
+        <li>možnost volitelného zapnutí dynamické změny odstínu původní barvy čar jako doplnění animace</li>
+        <li>možnost přidávání a odebírání čar při pozastaveném přehrávání</li>
+        <li>možnost změny audio souboru v pauze, což má za následek změnu výsledné animace</li>
+        <li>po pozastavení přehrávání nebo po jeho dokončení se obrázek vrací do původního stavu, ve kterém byl nakreslen uživatelem</li>
+    </ul>
+
+    <h2>Výstup</h2>
+    <p>
+      Výsledná prezentace semestrální práce s ukázkou použití je dostupná na <a href="https://youtu.be/toIXXI9S2lw">YouTube</a> 
+      (doporučeno sledovat se zapnutým zvukem, video obsahuje hlasové vysvětlení funkcí a ukázku přehrávání hudby).
+    </p>
+    <p>
+      V ukázce bylo použito pouze několik audio souborů, všechny byly vytvořeny autorkou práce.
+    </p>
+
+    <h2>Ukázka uživatelského rozhraní</h2>
+    <p>
+     Ukázka uživatelského rozhraní kreslicího editoru.
+      <img src="interface.png" alt="UI" style="max-width: 100%;">
+    </p>
+
+    <!--    DO NOT CHANGE STUFF BELLOW -->
+</section>
+<footer></footer>
+</body>
+
+</html>
