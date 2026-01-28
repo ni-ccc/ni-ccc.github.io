@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Agent | Layout Monitor</title>
+    <style>
+        :root {
+            --bg: #000;
+            --surface: #0a0a0a;
+            --card: #141414;
+            --border: #1f1f1f;
+            --text: #e0e0e0;
+            --muted: #7a7a7a;
+            --accent: #00bcd4;
+            --radius: 16px;
+            --font-main: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-main);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Layout */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 0 40px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            background: linear-gradient(135deg, #fff 0%, var(--muted) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-top: 10px;
+            display: inline-block;
+            padding: 6px 16px;
+            background: rgba(0, 188, 212, 0.1);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 188, 212, 0.2);
+        }
+
+        /* Story Feed */
+        .story-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 30px rgba(0, 188, 212, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card h2::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Image Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .image-wrapper {
+            background: var(--surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            padding: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-wrapper:hover {
+            transform: scale(1.02);
+            border-color: var(--muted);
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .caption {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* Tech Stack Tags */
+        .tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            color: var(--muted);
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text);
+            text-decoration: none;
+            padding: 10px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .social-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+
+        /* Animation delays */
+        .card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Ad Agent</h1>
+            <div class="subtitle">Instant Ad Alerts</div>
+            <p style="color: var(--muted); max-width: 600px; margin: 20px auto 0;">
+                High-speed tool for finding the latest ads in real-time.
+                Be the first to spot the best deals.
+            </p>
+        </header>
+
+        <section class="story-section">
+
+            <!-- The Idea -->
+            <div class="card">
+                <h2>The Idea & The Problem</h2>
+                <p>
+                    It started with a need to build a simple tool for myself and friends to find new listings faster.
+                    The main requirement was <span class="highlight">speed</span> and <span
+                        class="highlight">stealth</span> (to avoid bans).
+                    Existing RSS solutions only updated once an hour, which was useless for catching hot deals.
+                    I couldn't find any free open-source tools that met my criteria either.
+                </p>
+            </div>
+
+            <!-- Technology Research -->
+            <div class="card">
+                <h2>Market Analysis & Architecture</h2>
+                <p>
+                    I conducted an in-depth analysis of multiple leading classifieds platforms. Most relied on legacy
+                    HTML rendering, which proved inefficient for high-frequency data processing.
+                </p>
+                <p>
+                    To overcome this, I architected a <b>custom data aggregation layer</b>. By identifying and
+                    interfacing directly with internal data streams, I unified dispararate sources into a clean,
+                    structured format. This architectural shift allowed for sub-second data retrieval, bypassing the
+                    overhead of traditional web scraping.
+                </p>
+            </div>
+
+            <!-- The Solution -->
+            <div class="card">
+                <h2>Platform Integration</h2>
+                <p>
+                    I chose <b>Telegram</b> for its instant notifications and seamless integration on iOS and Android.
+                    Initially, it was a command-based bot, but that proved too difficult for average users.
+                    So, I completely overhauled the concept and implemented a <span class="highlight">graphical
+                        interface (Mini App)</span> directly within the chat.
+                </p>
+                <p>
+                    Now users get a convenient UI to set up filters, while the bot handles the monitoring and alerting.
+                </p>
+            </div>
+
+            <!-- Gallery -->
+            <div class="gallery">
+                <div class="image-wrapper">
+                    <img src="app-screen.png" alt="Search Interface">
+                    <div class="caption">Intuitive Search & Filters</div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="notifications.png" alt="New Item Notifications">
+                    <div class="caption">Instant Telegram Notifications</div>
+                </div>
+            </div>
+
+            <!-- Current Status -->
+            <div class="card">
+                <h2>Current Status & Challenges</h2>
+                <p>
+                    The <b>Frontend is fully ready</b> and deployed.
+                    The current challenge is optimizing the Backend to handle high loads.
+                    The system needs to process up to <span class="highlight">200 requests per second</span> to
+                    effectively filter out paid and "top" listings, ensuring only relevant new content reaches the user.
+                </p>
+            </div>
+
+        </section>
+
+        <footer>
+            <a href="https://github.com/Tiltrikt" target="_blank" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2.1c-3.3.7-4-1.6-4-1.6-.5-1.3-1.3-1.7-1.3-1.7-1.1-.8.1-.8.1-.8 1.2.1 1.8 1.3 1.8 1.3 1 1.8 2.6 1.3 3.2 1 .1-.8.4-1.3.7-1.6-2.7-.3-5.6-1.4-5.6-6.4 0-1.4.5-2.5 1.3-3.4-.1-.3-.6-1.6.1-3.3 0 0 1.1-.4 3.6 1.3a12.3 12.3 0 016.6 0c2.5-1.7 3.6-1.3 3.6-1.3.7 1.7.2 3 .1 3.3.8.9 1.3 2 1.3 3.4 0 5-2.9 6.1-5.6 6.4.4.3.8 1 .8 2v3c0 .3.2.7.8.6A12 12 0 0012 .5z" />
+                </svg>
+                <span>Tiltrikt · GitHub</span>
+            </a>
+            <p style="margin-top: 20px; font-size: 0.8rem;">&copy; 2026 Ad Agent Project. Created by Vladyslav Oleniuk.
+            </p>
+        </footer>
+    </div>
+
+</body>
+
+</html>
