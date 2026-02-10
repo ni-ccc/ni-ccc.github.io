@@ -61,6 +61,100 @@
             font-size: 0.9em;
             border: 1px solid #444;
         }
+
+        /* Pipeline Visualization Styles */
+        .pipeline-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: nowrap; 
+            /* overflow-x removed to avoid ugly scrollbars */
+        }
+
+        .photo-pile {
+            position: relative;
+            width: 90px;
+            /* Increased height to match neighboring portrait images ensuring alignment */
+            height: 140px; 
+            flex-shrink: 0;
+            cursor: pointer;
+            margin-bottom: 0rem;
+            overflow: visible;
+        }
+
+        .photo-pile img {
+            position: absolute;
+            width: 50%;
+            height: auto;
+            border: 1px solid #eee;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+            transition: transform 0.3s ease, z-index 0s, scale 0.3s;
+            background: #000;
+            transform-origin: center center;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%); 
+        }
+
+        .photo-pile:hover img { 
+            /* On hover, slightly spread them apart or just scale the one being hovered if I could target it, 
+               but CSS hover on parent affects all. Let's just make the hover effect scale the top one 
+               or maybe just scale the whole pile? The previous rule was specific to img on hover.
+               Let's keep it simple: hover brings the specific image to front if possible, but we can't do that easily without JS or complex selectors.
+               Just scale on hover for now.
+            */
+        }
+        
+        .photo-pile img:hover {
+            z-index: 100 !important;
+            /* Recalculate transform on hover to maintain centering + scale */
+            transform: translate(-50%, -50%) scale(1.5) rotate(0deg) !important;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+        }
+        
+        .pipeline-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90px;
+            text-align: center;
+        }
+
+        .pipeline-step > img {
+            width: 100%;
+            border: 2px solid #555;
+            border-radius: 4px;
+            margin-bottom: -2rem;
+        }
+
+        .pipeline-step span {
+            font-size: 0.8em;
+            color: #aaa;
+            position: relative;
+            z-index: 200;
+            margin-top: 3rem;
+            display: block;
+        }
+
+        .pipeline-arrow {
+            font-size: 1.5rem;
+            color: #666;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-bottom: -0.3rem;
+        }
+
+        @media (max-width: 800px) {
+            .pipeline-container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .pipeline-arrow {
+                transform: rotate(90deg);
+            }
+        }
     </style>
 </head>
 
@@ -140,6 +234,121 @@
             <figcaption>Prompt: "cyberpunk building, gloomy, night, rain, red"</figcaption>
             <figcaption>Prompt: "historical building, medieval castle"</figcaption>
             <figcaption>Prompt: "large building, drawing, gloomy"</figcaption>
+        </div>
+        <h2>Výsledek: StableMap</h2>
+        <p>Projekt je úspěšně dokončen. Aplikace <strong>StableMap</strong> umožňuje interaktivní generativní videomapping na libovolné objekty, od interiérů po celé budovy.</p>
+        
+        <h3>Popis aplikace</h3>
+        <p>Aplikace využívá sofistikový proces pro vytváření projekcí v reálném čase. Celý proces je poháněn moderními AI modely a počítačovým viděním.</p>
+        <ul>
+            <li><strong>Kalibrace a Mapping:</strong> Původní nápad využívat pouze homografii byl rozšířen o robustní metodu strukturovaného světla (Gray Codes). Aplikace naskenuje geometrii scény a vytvoří mapu korespondence pixelů. Původní fotografie scény je pomocí této mapy transformována přímo do perspektivy projektoru ještě před začátkem generování.</li>
+            <li><strong>Generování obsahu:</strong>
+                <ul>
+                    <li>Se systémem lze interagovat skrze webové rozhraní. Navíc je možné zpřístupnit i veřejné rozhraní pro návštěvníky, které zařazuje prompty do fronty pro schválení.</li>
+                    <li>Za pomocí automatické kalibrace, která využívá mobilní telefon pro nafocení kalibračních snímků, se vytvoří hloubková mapa pro zachycení 3D struktury prostředí. (Jde o jednorázový proces pouze na začátku)</li>
+                    <li>Obraz lze generovat buď pomocí <strong>Stable Diffusion</strong> s ControlNetem nebo pomocí <strong>Qwen Image</strong>, který umožnuje pokročilejší kontrolu a například i generování čitelného textu.</li>
+                    <li>Aplikace využívá ComfyUI jako svůj backend. <em>(Značná část kódu je přejata z mého projektu StableGen)</em></li>
+                </ul>
+            </li>
+            <li><strong>Projekce:</strong> Výsledný obraz již není třeba deformovat - jeho geometrie přímo odpovídá pohledu projektoru. Promítání je obohaceno o efektní přechody (např. hloubkové odhalování) a upscaling pro vyšší rozlišení.</li>
+        </ul>
+
+        <h3>Průběh vývoje</h3>
+        
+        <h4>1. Počátky: Homografie a interiérové projekce</h4>
+        <p>Prvotní fáze vývoje se soustředila na základní mapping v interiéru pomocí manuální homografie. Testoval jsem projekci na jednoduché plochy a ladil generativní pipeline.</p>
+        <div class="image-row">
+            <figure>
+                <img src="homography.jpeg" alt="Ukázka interiérové projekce a homografie">
+                <figcaption>Testování mappingu v interiéru</figcaption>
+            </figure>
+            <figure>
+                <div class="photo-pile" style="width: 100%; height: 240px; margin: 0;" title="První výsledky generování na zeď">
+                    <img src="wall_1.jpeg" style="width: 40%; left: 20%; top: 55%; transform: translate(-50%, -50%) rotate(-10deg); z-index: 1;" alt="Visualizace 1">
+                    <img src="wall_2.jpeg" style="width: 40%; left: 40%; top: 35%; transform: translate(-50%, -50%) rotate(5deg); z-index: 2;" alt="Visualizace 2">
+                    <img src="wall_3.jpeg" style="width: 40%; left: 60%; top: 55%; transform: translate(-50%, -50%) rotate(-5deg); z-index: 3;" alt="Visualizace 3">
+                    <img src="wall_4.jpeg" style="width: 40%; left: 80%; top: 40%; transform: translate(-50%, -50%) rotate(8deg); z-index: 4;" alt="Visualizace 4">
+                </div>
+                <figcaption>První generované vizualizace</figcaption>
+            </figure>
+        </div>
+
+        <h4>2. Pokročilá kalibrace a exteriér (Muzeum Prahy)</h4>
+        <p>Implementace Gray Code kalibrace umožnila přesun na členité fasády. Níže uvedená vizualizace ukazuje proces pipeline při projekci na budovu <strong>Muzea Prahy</strong>.</p>
+        
+        <div class="pipeline-container">
+            <!-- 1. Input Calibration Pile -->
+            <div class="pipeline-step">
+                <div class="photo-pile" title="Série kalibračních fotek (Gray Codes)">
+                    <img src="calib_1.jpeg" style="left: 30%; top: 30%; transform: translate(-50%, -50%) rotate(-15deg); z-index: 5;" alt="Kalibrace">
+                    <img src="calib_2.jpeg" style="left: 70%; top: 30%; transform: translate(-50%, -50%) rotate(10deg); z-index: 5;" alt="Kalibrace">
+                    <img src="calib_3.jpeg" style="left: 30%; top: 70%; transform: translate(-50%, -50%) rotate(-5deg); z-index: 5;" alt="Kalibrace">
+                    <img src="calib_1.jpeg" style="left: 70%; top: 70%; transform: translate(-50%, -50%) rotate(12deg); z-index: 5;" alt="Kalibrace">
+                    <img src="calib_2.jpeg" style="left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(-2deg); z-index: 1;" alt="Kalibrace">
+                </div>
+                <span>1. Kalibrace</span>
+            </div>
+
+            <div class="pipeline-arrow">→</div>
+
+            <!-- 2. Extracted View -->
+            <div class="pipeline-step">
+                <img src="extracted_view.jpeg" alt="Pohled projektoru">
+                <span>2. Extrakce pohledu</span>
+            </div>
+
+            <div class="pipeline-arrow">→</div>
+
+            <!-- 3. Depth Map -->
+            <div class="pipeline-step">
+                <img src="midas_depth.jpeg" alt="Depth Map">
+                <span>3. Hloubková mapa</span>
+            </div>
+
+            <div class="pipeline-arrow">→</div>
+
+            <!-- 4. Output Result Pile -->
+            <div class="pipeline-step">
+                <div class="photo-pile" title="Výsledné projekce">
+                    <img src="result_1.jpeg" style="left: 30%; top: 35%; transform: translate(-50%, -50%) rotate(5deg); z-index: 5;" alt="Výsledek">
+                    <img src="result_2.jpeg" style="left: 70%; top: 35%; transform: translate(-50%, -50%) rotate(-8deg); z-index: 5;" alt="Výsledek">
+                    <img src="result_3.jpeg" style="left: 30%; top: 65%; transform: translate(-50%, -50%) rotate(-5deg); z-index: 5;" alt="Výsledek">
+                    <img src="result_1.jpeg" style="left: 70%; top: 65%; transform: translate(-50%, -50%) rotate(10deg); z-index: 5;" alt="Výsledek">
+                    <img src="result_2.jpeg" style="left: 50%; top: 50%; transform: translate(-50%, -50%) rotate(0deg); z-index: 1;" alt="Výsledek">
+                </div>
+                <span>4. Projekce</span>
+            </div>
+        </div>
+
+        <h4>3. Další experimenty</h4>
+        <p><strong>Rodinný dům:</strong> Systém byl testován také na rodinném domě. Zde je ukázka tří vygenerovaných projekcí v různých stylech a video s přechodovými efekty.</p>
+        <div class="image-row">
+            <figure>
+                <img src="house_1.jpeg" alt="Vizualizace domu 1">
+            </figure>
+            <figure>
+                <img src="house_2.jpeg" alt="Vizualizace domu 2">
+            </figure>
+            <figure>
+                <img src="house_3.jpeg" alt="Vizualizace domu 3">
+            </figure>
+        </div>
+        
+        <div style="text-align: center; margin-top: 1rem; margin-bottom: 2rem;">
+            <video controls style="max-width: 100%; border-radius: 4px; box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                <source src="house.mp4" type="video/mp4">
+                Váš prohlížeč nepodporuje video element.
+            </video>
+            <p style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">Ukázka přechodových efektů na rodinném domě</p>
+        </div>
+
+        <p><strong>Muzeum Prahy:</strong> Ukázka z slavnostního otevření Muzea Prahy. <em>(zrychleno)</em></p>
+        <div style="text-align: center; margin-top: 1rem;">
+            <video controls style="max-width: 100%; border-radius: 4px; box-shadow: 1px 1px 5px rgba(0,0,0,0.3);">
+                <source src="museum.mp4" type="video/mp4">
+                Váš prohlížeč nepodporuje video element.
+            </video>
+            <p style="font-size: 0.9em; color: #666; margin-top: 0.5rem;">Záznam z projekce na Muzeum Prahy</p>
         </div>
         <h2>Kontakt</h2>
         <p>Email: <a href="mailto:sakalaondrej@gmail.com">sakalaondrej@gmail.com</a></p>
