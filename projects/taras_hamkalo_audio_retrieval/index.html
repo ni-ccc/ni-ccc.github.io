@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/page.css" />
+    <script src="/img.js"></script>
+    <title>NI-CCC</title>
+</head>
+
+<body>
+<header>
+    <a href="/">
+        <h1>Creative Coding and Computational Art Course</h1>
+    </a>
+    <div>
+        <img src="/logo/logo_nic.png" alt="Logo NI-CCC">
+    </div>
+</header>
+<section id="main">
+    <!--    DO NOT CHANGE STUFF ABOVE IF YOU DONT KNOW WHAT YOU ARE DOING -->
+    <!--    here is place for your stuff, see examples bellow -->
+
+
+    <h1>Audio výhledavaní na zakladě analýzy spektrogramů a fingerprintingu</h1>
+    <p class="tagline">Taras Hamkalo; projekt předmětu NI-CCC v zimním semestru 2025-2026</p>
+
+    <h2>Nápad a motivace</h2>
+    <p>
+        Vyhledávání hudby, obrázků nebo jiných multimediálních dat mi vždy připadalo jako něco
+        složitého a téměř magického. V tomto semestru jsem měl možnost navštěvovat předměty NI-CCC a
+        NI-VMM, které mi umožnily se s touto oblastí blíže seznámit a vyzkoušet si praktickou práci.
+    </p>
+    <p>
+        Tento projekt je zaměřen na implementaci vyhledávacího systému pro audio soubory. Systém
+        pracuje s krátkým a často silně zašuměným audio signálem (např. nahrávkou z mobilního
+        telefonu) a snaží se najít odpovídající originální skladbu. Cílem je vyhledání přesné shody,
+        nikoli hodnocení obecné podobnosti.
+    </p>
+
+    <h2>Způsob řešení</h2>
+    <p>
+        Základem řešení je analýza spektrogramu audio signálu a tvorba tzv. audio otisků. Podobný
+        přístup používají známé systémy jako například Shazam.
+    </p>
+    <p>
+        Myšlenka spočívá v tom, že i při šumu nebo zkreslení zůstávají některé lokální
+        charakteristiky signálu stabilní. Tyto vlastnosti lze následně využít pro porovnání nahrávky
+        s originálem.
+    </p>
+    <p>
+        Hlavní pozornost byla věnována:
+    </p>
+    <ul>
+        <li>zpracování spektrogramu,</li>
+        <li>výběru stabilních bodů,</li>
+        <li>tvorbě audio otisků pro následné porovnání.</li>
+    </ul>
+
+    <h2>Výsledek</h2>
+    <p>
+        V rámci projektu byla implementována základní logika porovnávání audio souborů a také
+        jednoduchá webová aplikace pro uživatelskou interakci. Systém je schopen správně
+        identifikovat originální skladbu i v případě, že vstupní signál obsahuje výrazný okolní šum.
+    </p>
+    <p>
+        Ukázkové demo video použití aplikace je uvedeno níže. Vstupní ukázka je silně ovlivněna
+        okolními zvuky (např. nahrávka z ulice), přesto systém správně rozpozná originální skladbu.
+    </p>
+
+    <video width="640" height="400" controls>
+        <source src="videos/audio_retrieval_demo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <p>Projekt se skládá ze dvou částí:</p>
+
+    <ul>
+        <li>
+            core — logika zpracování a vyhledávání audio signalů
+            <ul>
+                <li>dostupné v repozitaři:
+                    <a href="https://github.com/TarasHamkalo/audio-retrieval">
+                        https://github.com/TarasHamkalo/audio-retrieval
+                    </a>
+                </li>
+                <li>na části pracovali:
+                    <ul>
+                        <li>Taras Hamkalo — zpracování audia, extrakce příznaků, web backend</li>
+                        <li>Vladyslav Oleniuk — porovnávání příznaků, web backend</li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            ui — klientská webová část
+            <ul>
+                <li>dostupné v repozitaři:
+                    <a href="https://github.com/TarasHamkalo/audio-retrieval-ui">
+                        https://github.com/TarasHamkalo/audio-retrieval-ui
+                    </a>
+                </li>
+                <li>autor: Taras Hamkalo</li>
+            </ul>
+        </li>
+    </ul>
+
+    <p>
+        Pro spuštění projektu lze využít <code>docker-compose.yml</code>, který je dostupný
+        v repozitářích spolu s testovacími soubory a krátkým návodem (viz README).
+    </p>
+
+    <!--    DO NOT CHANGE STUFF BELLOW -->
+
+</section>
+<footer></footer>
+</body>
+</html>

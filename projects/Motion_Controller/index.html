@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/page.css">
+    <script src="/img.js"></script>
+    <title>Motion Controller - NI-CCC</title>
+</head>
+
+<body>
+    <header>
+        <a href="/">
+            <h1>Creative Coding and Computational Art Course</h1>
+        </a>
+        <div>
+            <img src="/logo/logo_nic.png" alt="Logo NI-CCC">
+        </div>
+    </header>
+    <section id="main">
+        <!--    DO NOT CHANGE STUFF ABOVE IF YOU DONT KNOW WHAT YOU ARE DOING -->
+        <!--    here is place for your stuff, see examples bellow -->
+
+        <h1>Motion Controller - Gestové ovládání her</h1>
+        
+        <h2>Autoři:</h2>
+        <a href="../../members/taganliu/">Liudmila Taganashkina</a><br>
+        <a href="../../members/efimovla/">Vladimir Efimov</a>
+        <br>
+
+        <div style="margin: 30px 100px;">
+            <img src="assets/loading_screen.png" alt="Loading screen" style="max-width: 100%;">
+            <i>Úvodní obrazovka</i>
+        </div>
+        
+        <h2>O projektu</h2>
+        
+        <p><b>Motion Controller</b> je aplikace pro bezkontaktní ovládání počítačových her pomocí pohybů těla. Využívá běžnou webkameru a technologie strojového učení k detekci pózy uživatele v reálném čase, kterou převádí na herní vstupy (klávesnice a myš).
+
+        <h2>Odkazy</h2>
+        <p><b>GitHub:</b> <a href="https://github.com/LiudmilaTa/Motion-Controller" target="_blank">https://github.com/LiudmilaTa/Motion-Controller</a>
+
+        <h2>Realizovaná myšlenka</h2>
+        <p>Původní nápad byl vytvořit <b>univerzální herní ovladač bez speciálního hardwaru</b>. Cílem bylo umožnit hráčům ovládat hry pouze pomocí pohybů těla před webkamerou, čímž se stane hraní interaktivnějším a dostupnějším.
+
+        <h2>Co jsme implementovali</h2>
+
+        <p><b>Detekce pózy v reálném čase:</b>
+        <ul>
+            <li>Využití <b>MediaPipe</b> od Google pro detekci klíčových bodů těla
+            <li>Zpracování 30 snímků za sekundu s latencí &lt; 50 ms
+            <li>Normalizované souřadnice nezávislé na rozlišení kamery
+        </ul>
+
+        <p><b>Mapování pohybů na vstupy:</b>
+        <ul>
+            <li><b>Levá ruka:</b> WASD ovládání (pohyb ve hrách)
+            <li><b>Pravá ruka:</b> Ovládání kurzoru myši + detekce kliknutí
+            <li><b>Tělo:</b> Skok (mezerník) při zvednutí ruky
+        </ul>
+
+        <div style="margin: 30px 100px;">
+            <img src="assets/instructions.png" alt="Instructions" style="max-width: 100%;">
+        </div>
+
+        <p><b>Vyhlazování a stabilizace:</b>
+        <ul>
+            <li>Implementace <b>dead zone</b> pro eliminaci třesu
+            <li>Vyhlazování pohybu myši (smoothing algoritmus)
+            <li>Prahové hodnoty pro prevenci falešných vstupů
+        </ul>
+        
+        <div style="margin: 30px 100px;">
+            <img src="assets/zones_1.png" alt="Control Zones" style="max-width: 70%;">
+            <br>
+        </div>
+
+        <div style="margin: 30px 100px;">
+            <img src="assets/zones_2.png" alt="Control Zones" style="max-width: 70%;">
+            <br>
+        </div>
+   
+        <p><b>Vizualizace v reálném čase:</b>
+        <ul>
+            <li>Vykreslení ovládacích zón
+            <li>Real-time feedback o stavu detekce
+        </ul>
+
+        <h2>Technologie</h2>
+        <ul>
+            <li><b>Python 3.8</b> - Hlavní programovací jazyk
+            <li><b>MediaPipe 0.10.8</b> - ML framework pro detekci pózy
+            <li><b>OpenCV 4.8.1</b> - Zpracování video streamu
+            <li><b>NumPy 1.23.5</b> - Matematické operace
+            <li><b>PyDirectInput 1.0.4</b> - Simulace herních vstupů
+            <li><b>PyAutoGUI 0.9.54</b> - Univerzální ovládání myši/klávesnice
+        </ul>
+
+        <h2>Aktuální stav projektu</h2>
+        
+        <p>Projekt je ve <b>funkčním stavu</b> a obsahuje všechny plánované základní funkce:
+
+        <p><b>Plně funkční:</b>
+        <ul>
+            <li>Detekce pózy pomocí webkamery
+            <li>Real-time mapování pohybů na vstupy
+            <li>Ovládání WASD a myši
+            <li>Vizuální feedback
+        </ul>
+
+        <p><b>Známé problémy:</b>
+        <ul>
+            <li>Vyžaduje dobré osvětlení pro přesnou detekci
+            <li>Vyšší CPU náročnost (40-60%)
+            <li>První spuštění může trvat dele (3-5 minut (načítání ML modelů)), je to normální.
+        </ul>
+
+        <h2>Možná budoucí vylepšení</h2>
+        <ul>
+            <li><b>Kalibrace:</b> Individuální nastavení pro různé uživatele
+            <li><b>GPU akcelerace:</b> Využití CUDA pro lepší výkon
+            <li><b>Více gest:</b> Detekce komplexnějších pohybů rukou
+            <li><b>Profily:</b> Různá mapování pro různé typy her
+            <li><b>Konfigurátor:</b> GUI pro nastavení citlivosti
+        </ul>
+
+        <h2>Závěr</h2>
+        <p>Motion Controller úspěšně demonstruje možnosti využití počítačového vidění a strojového učení pro herní ovládání. Projekt dosáhl funkčního stavu s real-time detekcí a responsivním ovládáním. Díky standalone distribuci je aplikace snadno sdílitelná a použitelná bez technických znalostí.
+
+        <footer></footer>
+
+    </section>
+
+    <script>
+        makeImgsClickable();
+    </script>
+</body>
+
+</html>
